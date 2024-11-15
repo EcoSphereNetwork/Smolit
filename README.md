@@ -1,12 +1,12 @@
 ```python
-# ========================================================#
-# This file is a part of Smolit package                   #
-# Website: **Smolitux**                                   #
-# GitHub:  https://github.com/eco-sphere-network/smolitux #
-# MIT License                                             #
-# Created By  : Sam Schimmelpfennig                       #
-# Updated Date: 28.10.2024 10:00:00                       #
-# ========================================================#
+# =========================================================#
+# This file is a part of Smolit package                    #
+# Website: **Smolitux**                                    #
+# GitHub:  https://github.com/eco-sphere-network/smolitux  #
+# MIT License                                              #
+# Created By  : Sam Schimmelpfennig                        #
+# Updated Date: 28.10.2024 10:00:00                        #
+# =========================================================#
 ```
 
 # ################################################################################
