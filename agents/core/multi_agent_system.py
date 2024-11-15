@@ -1,5 +1,5 @@
 from typing import Dict, Any, Optional
-from langchain_community.llms.openai import OpenAI
+from langchain_community.chat_models import ChatOpenAI
 from .supervisor import SupervisorAgent
 from ..experts.command_agent import CommandExecutionAgent
 from ..experts.rag_agent import RAGAgent
@@ -15,9 +15,11 @@ class MultiAgentSystem:
         """Initialize the multi-agent system."""
         try:
             # Initialize LLM with local or OpenAI settings
-            self.llm = OpenAI(
-                openai_api_key=api_key or "lm_studio",
-                openai_api_base=api_base or "http://localhost:1234/v1"
+            self.llm = ChatOpenAI(
+                model="TinyLlama-1.1B-Chat-v1.0.Q5_K_M.llamafile",
+                openai_api_key=api_key or "sk-dummy-key",
+                openai_api_base=api_base or "http://localhost:8080/v1",
+                max_tokens=256
             )
             
             # Load system prompts

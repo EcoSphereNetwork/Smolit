@@ -1,0 +1,12 @@
+{
+    "endpoints": {
+        "llama": {
+            "name": "Local Llama",
+            "api_base": "http://localhost:8080/v1",
+            "api_key": "",
+            "model": "TinyLlama-1.1B-Chat-v1.0.Q5_K_M.llamafile",
+            "type": "llama"
+        }
+    },
+    "active_endpoint": "llama"
+}
