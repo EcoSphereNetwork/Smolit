@@ -2,6 +2,7 @@ import subprocess
 from typing import Optional, Dict, Any
 from langchain.llms.base import BaseLLM
 from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 from ..core.base_agent import BaseAgent
 from ..tools.command_executor import CommandExecutor
 
