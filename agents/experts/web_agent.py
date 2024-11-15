@@ -1,15 +1,18 @@
 from typing import Dict, Any
 from langchain.llms.base import BaseLLM
 from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 from ..core.base_agent import BaseAgent
 from ..tools.web_browser import WebBrowser
 
 class WebAgent(BaseAgent):
     def __init__(self, llm: BaseLLM):
+        """Initialize the web browsing agent."""
         super().__init__(llm)
         self.browser = WebBrowser()
+        self._initialize_chain()
 
-    def _initialize_chain(self):
+    def _initialize_chain(self) -> None:
         """Initialize the web browsing chain."""
         prompt = PromptTemplate(
             input_variables=["input", "history", "web_content"],
@@ -43,25 +46,42 @@ class WebAgent(BaseAgent):
 
     async def process(self, user_input: str) -> str:
         """Process user input using web browsing capabilities."""
-        # Check if input is a URL
-        if user_input.startswith(('http://', 'https://')):
-            web_result = await self.browser.browse(user_input)
-        else:
-            # Treat as search query
-            web_result = await self.browser.search(user_input)
-        
-        # Generate response using chain
-        response = await self.chain.arun(
-            input=user_input,
-            web_content=str(web_result)
-        )
-        
-        return response
+        try:
+            # Check if input is a URL
+            if user_input.startswith(('http://', 'https://')):
+                web_result = await self.browser.browse(user_input)
+            else:
+                # Treat as search query
+                web_result = await self.browser.search(user_input)
+            
+            # Generate response using chain
+            response = await self.chain.arun(
+                input=user_input,
+                web_content=str(web_result)
+            )
+            
+            return response
+            
+        except Exception as e:
+            return f"Error processing web request: {str(e)}"
 
     async def browse_url(self, url: str) -> Dict[str, Any]:
         """Browse a specific URL."""
-        return await self.browser.browse(url)
+        try:
+            return await self.browser.browse(url)
+        except Exception as e:
+            return {
+                'url': url,
+                'error': f"Error browsing URL: {str(e)}"
+            }
 
     async def search_web(self, query: str) -> Dict[str, Any]:
         """Perform a web search."""
-        return await self.browser.search(query)
+        try:
+            return await self.browser.search(query)
+        except Exception as e:
+            return {
+                'query': query,
+                'error': f"Error performing search: {str(e)}"
+            }
+

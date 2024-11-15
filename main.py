@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # ========================================================#
 # This file is a part of Smolit package                   #
@@ -14,6 +14,11 @@ import asyncio
 from tkinter import Toplevel, Text, Button, END, Frame, Label
 from agents.core.multi_agent_system import MultiAgentSystem
 import subprocess
+import sys
+
+# Ensure Python 3
+if sys.version_info[0] < 3:
+    raise Exception("Python 3 or a more recent version is required.")
 
 # Configuration for local LM Studio server
 API_URL_BASE = "http://localhost:1234/v1/"
@@ -35,12 +40,22 @@ class SimpleAssistantApp:
         )
 
         # Create icon button
-        self.icon_button = tk.Button(self.root, text="🤖", font=("Arial", 14), bg='#15aaff')
+        self.icon_button = tk.Button(
+            self.root, 
+            text="🤖", 
+            font=("TkDefaultFont", 14),  # Use Tk default font
+            bg='#15aaff'
+        )
         self.icon_button.pack(expand=True, fill='both')
-        self.icon_button.bind("<Double-Button-1>", lambda event: self.open_chat_window())
+        self.icon_button.bind("<Double-Button-1>", self.open_chat_window)
 
         # Close button
-        close_button = Button(self.root, text="X", command=self.close_application, width=2)
+        close_button = Button(
+            self.root, 
+            text="X", 
+            command=self.close_application, 
+            width=2
+        )
         close_button.pack(side=tk.BOTTOM)
 
         # Enable dragging
@@ -56,7 +71,7 @@ class SimpleAssistantApp:
         y = self.root.winfo_pointery() - self.root.y
         self.root.geometry(f"+{x}+{y}")
 
-    def open_chat_window(self):
+    def open_chat_window(self, event=None):
         if hasattr(self, 'chat_window') and self.chat_window.winfo_exists():
             self.chat_window.lift()
             return
@@ -64,36 +79,62 @@ class SimpleAssistantApp:
         self.chat_window = Toplevel(self.root)
         self.chat_window.title("Smolit")
         self.chat_window.wm_attributes("-topmost", True)
-        self.chat_window.geometry("400x600")  # Slightly larger window
+        self.chat_window.geometry("400x600")
 
         # Header
         head_frame = Frame(self.chat_window, bg='#15aaff')
-        toggle_btn = Button(head_frame, text='☰', bg='#15aaff', fg='white',
-                          font=('Bold', 20),
-                          activebackground='#15aaff', activeforeground='white',
-                          command=self.toggle_menu)
+        toggle_btn = Button(
+            head_frame, 
+            text='☰', 
+            bg='#15aaff', 
+            fg='white',
+            font=("TkDefaultFont", 20),
+            activebackground='#15aaff', 
+            activeforeground='white',
+            command=self.toggle_menu
+        )
         toggle_btn.pack(side=tk.LEFT)
 
-        title_lb = tk.Label(head_frame, text='Smolit AI', bg='#15aaff', fg='white',
-                          font=('Bold', 20))
+        title_lb = Label(
+            head_frame, 
+            text='Smolit AI', 
+            bg='#15aaff', 
+            fg='white',
+            font=("TkDefaultFont", 20)
+        )
         title_lb.pack(side=tk.LEFT)
         head_frame.pack(side=tk.TOP, fill=tk.X)
 
         # Chat area
-        self.response_area = Text(self.chat_window, wrap="word", state="disabled", 
-                                bg="#f0f0f0", height=20)
+        self.response_area = Text(
+            self.chat_window, 
+            wrap=tk.WORD, 
+            state=tk.DISABLED, 
+            bg="#f0f0f0", 
+            height=20
+        )
         self.response_area.pack(expand=True, fill="both", padx=5, pady=(5, 0))
 
         # Input area
-        self.user_input = Text(self.chat_window, height=4, bg="#ffffff")
+        self.user_input = Text(
+            self.chat_window, 
+            height=4, 
+            bg="#ffffff"
+        )
         self.user_input.pack(expand=True, fill="both", padx=5, pady=(5, 5))
 
         # Send button
-        send_button = Button(self.chat_window, text="Send", command=self.send_message,
-                           bg='#15aaff', fg='white')
+        send_button = Button(
+            self.chat_window, 
+            text="Send", 
+            command=self.send_message,
+            bg='#15aaff', 
+            fg='white'
+        )
         send_button.pack(side='left', padx=(5, 5), pady=5)
 
-        self.user_input.bind("<Return>", lambda event: (self.send_message(), "break"))
+        # Bind Return key to send message
+        self.user_input.bind("<Return>", lambda e: self.send_message())
 
     def toggle_menu(self):
         if hasattr(self, 'menu_frame') and self.menu_frame.winfo_exists():
@@ -110,12 +151,17 @@ class SimpleAssistantApp:
         ]
 
         for text, y, command in buttons_info:
-            btn = Button(self.menu_frame, text=text,
-                        font=('Bold', 20), bd=0,
-                        bg='#15aaff', fg='white',
-                        activebackground='#15aaff',
-                        activeforeground='white',
-                        command=command)
+            btn = Button(
+                self.menu_frame, 
+                text=text,
+                font=("TkDefaultFont", 20), 
+                bd=0,
+                bg='#15aaff', 
+                fg='white',
+                activebackground='#15aaff',
+                activeforeground='white',
+                command=command
+            )
             btn.place(x=20, y=y)
 
         window_height = self.chat_window.winfo_height()
@@ -142,9 +188,9 @@ class SimpleAssistantApp:
 
     def display_message(self, sender, message):
         """Display message in response area."""
-        self.response_area.config(state="normal")
+        self.response_area.config(state=tk.NORMAL)
         self.response_area.insert(END, f"{sender}: {message}\n\n")
-        self.response_area.config(state="disabled")
+        self.response_area.config(state=tk.DISABLED)
         self.response_area.see(END)
 
     def show_knowledge_page(self):
@@ -170,8 +216,17 @@ class SimpleAssistantApp:
         """Run the Tkinter main loop."""
         self.root.mainloop()
 
-# Run the application
+def main():
+    """Main entry point with error handling."""
+    try:
+        app = SimpleAssistantApp()
+        app.run()
+    except Exception as e:
+        import traceback
+        print(f"Error starting application: {e}")
+        traceback.print_exc()
+        sys.exit(1)
+
 if __name__ == "__main__":
-    app = SimpleAssistantApp()
-    app.run()
+    main()
 
