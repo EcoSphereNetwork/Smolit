@@ -38,4 +38,4 @@
 # README
 
     - README.md erstellen:
-        - Smolit ist vorerst "nur" das kleine icon als Einstig für Py-GPT
+        - Smolit ist vorerst "nur" das kleine icon als Einstig für Smolitux-Suite
