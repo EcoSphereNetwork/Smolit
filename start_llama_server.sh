@@ -19,12 +19,28 @@ log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$LOG_FILE"
 }
 
-# Check if the model file already exists
-if [ ! -f "$MODEL_FILE" ]; then
+# Function to download with progress
+download_model() {
     log "Downloading LlamaFile model..."
-    wget $MODEL_URL | tee -a "$LOG_FILE"
+    wget --progress=dot:giga "$MODEL_URL" 2>&1 | \
+    while read line; do
+        log "$line"
+        echo "$line" >&2
+    done
+}
+
+# Check if the model file already exists and is complete
+if [ -f "$MODEL_FILE" ]; then
+    FILE_SIZE=$(stat -f%z "$MODEL_FILE" 2>/dev/null || stat -c%s "$MODEL_FILE" 2>/dev/null)
+    if [ "$FILE_SIZE" -gt 900000000 ]; then  # ~900MB
+        log "LlamaFile model already exists and is complete."
+    else
+        log "LlamaFile model exists but is incomplete. Re-downloading..."
+        rm "$MODEL_FILE"
+        download_model
+    fi
 else
-    log "LlamaFile model already exists."
+    download_model
 fi
 
 # Make the LlamaFile executable
@@ -45,13 +61,13 @@ trap cleanup EXIT
 
 # Wait for the server to start and check if it's running
 log "Waiting for LlamaFile server to start..."
-for i in {1..10}; do
+for i in {1..30}; do  # Increased timeout to 60 seconds
     sleep 2  # Wait for 2 seconds before checking
     if curl -s http://localhost:8080 > /dev/null; then
         log "LlamaFile server is running."
         break
     fi
-    log "Waiting for server to start..."
+    log "Waiting for server to start... (attempt $i/30)"
 done
 
 if ! curl -s http://localhost:8080 > /dev/null; then
@@ -80,3 +96,4 @@ wait $SERVER_PID
 # After exiting, stop monitoring (the while loop will be terminated automatically)
 kill %1  # Kill the process displaying current processes
 log "Resource monitoring stopped."
+
