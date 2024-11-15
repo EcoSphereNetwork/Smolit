@@ -11,8 +11,9 @@
 
 import tkinter as tk
 import asyncio
-from tkinter import Toplevel, Text, Button, END, Frame, Label
+from tkinter import Toplevel, Text, Button, END, Frame, Label, ttk, messagebox
 from agents.core.multi_agent_system import MultiAgentSystem
+from agents.core.config import Config, LLMEndpoint
 import subprocess
 import sys
 
@@ -20,12 +21,11 @@ import sys
 if sys.version_info[0] < 3:
     raise Exception("Python 3 or a more recent version is required.")
 
-# Configuration for local LM Studio server
-API_URL_BASE = "http://localhost:1234/v1/"
-API_KEY = "lm_studio"
-
 class SimpleAssistantApp:
     def __init__(self):
+        # Initialize configuration
+        self.config = Config()
+        
         # Initialize main icon window
         self.root = tk.Tk()
         self.root.geometry("50x50")
@@ -33,17 +33,14 @@ class SimpleAssistantApp:
         self.root.wm_attributes("-topmost", True)
         self.root.title("Smolit Desktop-Icon")
 
-        # Initialize multi-agent system
-        self.agent_system = MultiAgentSystem(
-            api_key=API_KEY,
-            api_base=API_URL_BASE
-        )
+        # Initialize multi-agent system with active endpoint
+        self._initialize_agent_system()
 
         # Create icon button
         self.icon_button = tk.Button(
             self.root, 
             text="🤖", 
-            font=("TkDefaultFont", 14),  # Use Tk default font
+            font=("TkDefaultFont", 14),
             bg='#15aaff'
         )
         self.icon_button.pack(expand=True, fill='both')
@@ -61,6 +58,18 @@ class SimpleAssistantApp:
         # Enable dragging
         self.root.bind("<Button-1>", self.start_move)
         self.root.bind("<B1-Motion>", self.do_move)
+
+    def _initialize_agent_system(self):
+        """Initialize the multi-agent system with current endpoint."""
+        endpoint = self.config.get_active_endpoint()
+        if endpoint.type == "llama" and not self.config.start_llama_server():
+            messagebox.showerror("Error", "Failed to start Llama server")
+            sys.exit(1)
+            
+        self.agent_system = MultiAgentSystem(
+            api_key=endpoint.api_key,
+            api_base=endpoint.api_base
+        )
 
     def start_move(self, event):
         self.root.x = event.x
@@ -103,6 +112,19 @@ class SimpleAssistantApp:
             font=("TkDefaultFont", 20)
         )
         title_lb.pack(side=tk.LEFT)
+
+        # Add endpoint selector
+        self.endpoint_var = tk.StringVar(value=self.config.config["active_endpoint"])
+        endpoint_select = ttk.Combobox(
+            head_frame,
+            textvariable=self.endpoint_var,
+            values=list(self.config.config["endpoints"].keys()),
+            state="readonly",
+            width=15
+        )
+        endpoint_select.pack(side=tk.RIGHT, padx=5)
+        endpoint_select.bind('<<ComboboxSelected>>', self.change_endpoint)
+
         head_frame.pack(side=tk.TOP, fill=tk.X)
 
         # Chat area
@@ -135,6 +157,25 @@ class SimpleAssistantApp:
 
         # Bind Return key to send message
         self.user_input.bind("<Return>", lambda e: self.send_message())
+
+    def change_endpoint(self, event=None):
+        """Change the active endpoint and reinitialize the agent system."""
+        selected = self.endpoint_var.get()
+        if selected != self.config.config["active_endpoint"]:
+            # Stop current Llama server if running
+            if self.config.config["endpoints"][self.config.config["active_endpoint"]]["type"] == "llama":
+                self.config.stop_llama_server()
+            
+            # Set new endpoint
+            self.config.set_active_endpoint(selected)
+            
+            # Reinitialize agent system
+            self._initialize_agent_system()
+            
+            self.display_message(
+                "System", 
+                f"Switched to {self.config.config['endpoints'][selected]['name']} endpoint"
+            )
 
     def toggle_menu(self):
         if hasattr(self, 'menu_frame') and self.menu_frame.winfo_exists():
@@ -200,16 +241,168 @@ class SimpleAssistantApp:
 
     def show_settings_page(self):
         """Show the settings page."""
-        # TODO: Implement settings UI
-        pass
+        settings_window = Toplevel(self.chat_window)
+        settings_window.title("Settings")
+        settings_window.geometry("500x400")
+        
+        # Create notebook for tabs
+        notebook = ttk.Notebook(settings_window)
+        
+        # Endpoints tab
+        endpoints_frame = ttk.Frame(notebook)
+        notebook.add(endpoints_frame, text="Endpoints")
+        
+        # List of endpoints
+        endpoints_list = tk.Listbox(endpoints_frame, width=40, height=10)
+        for name, endpoint in self.config.config["endpoints"].items():
+            endpoints_list.insert(tk.END, f"{name} ({endpoint['type']})")
+        endpoints_list.pack(pady=10)
+        
+        # Buttons frame
+        btn_frame = ttk.Frame(endpoints_frame)
+        ttk.Button(btn_frame, text="Add", command=self.add_endpoint).pack(side=tk.LEFT, padx=5)
+        ttk.Button(btn_frame, text="Edit", command=lambda: self.edit_endpoint(endpoints_list.get(tk.ACTIVE))).pack(side=tk.LEFT, padx=5)
+        ttk.Button(btn_frame, text="Remove", command=lambda: self.remove_endpoint(endpoints_list.get(tk.ACTIVE))).pack(side=tk.LEFT, padx=5)
+        btn_frame.pack(pady=5)
+        
+        notebook.pack(expand=True, fill="both")
+
+    def add_endpoint(self):
+        """Show dialog to add new endpoint."""
+        dialog = Toplevel(self.root)
+        dialog.title("Add Endpoint")
+        dialog.geometry("300x400")
+        
+        ttk.Label(dialog, text="Name:").pack(pady=5)
+        name_entry = ttk.Entry(dialog)
+        name_entry.pack(pady=5)
+        
+        ttk.Label(dialog, text="Type:").pack(pady=5)
+        type_var = tk.StringVar(value="openai")
+        ttk.Radiobutton(dialog, text="OpenAI Compatible", variable=type_var, value="openai").pack()
+        ttk.Radiobutton(dialog, text="Llama", variable=type_var, value="llama").pack()
+        
+        ttk.Label(dialog, text="API Base:").pack(pady=5)
+        api_base_entry = ttk.Entry(dialog)
+        api_base_entry.pack(pady=5)
+        
+        ttk.Label(dialog, text="API Key:").pack(pady=5)
+        api_key_entry = ttk.Entry(dialog, show="*")
+        api_key_entry.pack(pady=5)
+        
+        ttk.Label(dialog, text="Model:").pack(pady=5)
+        model_entry = ttk.Entry(dialog)
+        model_entry.pack(pady=5)
+        
+        def save():
+            endpoint = LLMEndpoint(
+                name=name_entry.get(),
+                type=type_var.get(),
+                api_base=api_base_entry.get(),
+                api_key=api_key_entry.get(),
+                model=model_entry.get()
+            )
+            self.config.add_endpoint(endpoint)
+            dialog.destroy()
+            self.show_settings_page()
+        
+        ttk.Button(dialog, text="Save", command=save).pack(pady=20)
+
+    def edit_endpoint(self, endpoint_name):
+        """Show dialog to edit existing endpoint."""
+        if not endpoint_name:
+            return
+            
+        name = endpoint_name.split(" (")[0]
+        endpoint = self.config.config["endpoints"][name]
+        
+        dialog = Toplevel(self.root)
+        dialog.title("Edit Endpoint")
+        dialog.geometry("300x400")
+        
+        ttk.Label(dialog, text="Name:").pack(pady=5)
+        name_entry = ttk.Entry(dialog)
+        name_entry.insert(0, endpoint["name"])
+        name_entry.pack(pady=5)
+        
+        ttk.Label(dialog, text="Type:").pack(pady=5)
+        type_var = tk.StringVar(value=endpoint["type"])
+        ttk.Radiobutton(dialog, text="OpenAI Compatible", variable=type_var, value="openai").pack()
+        ttk.Radiobutton(dialog, text="Llama", variable=type_var, value="llama").pack()
+        
+        ttk.Label(dialog, text="API Base:").pack(pady=5)
+        api_base_entry = ttk.Entry(dialog)
+        api_base_entry.insert(0, endpoint["api_base"])
+        api_base_entry.pack(pady=5)
+        
+        ttk.Label(dialog, text="API Key:").pack(pady=5)
+        api_key_entry = ttk.Entry(dialog, show="*")
+        api_key_entry.insert(0, endpoint["api_key"])
+        api_key_entry.pack(pady=5)
+        
+        ttk.Label(dialog, text="Model:").pack(pady=5)
+        model_entry = ttk.Entry(dialog)
+        model_entry.insert(0, endpoint["model"])
+        model_entry.pack(pady=5)
+        
+        def save():
+            new_endpoint = LLMEndpoint(
+                name=name_entry.get(),
+                type=type_var.get(),
+                api_base=api_base_entry.get(),
+                api_key=api_key_entry.get(),
+                model=model_entry.get()
+            )
+            self.config.remove_endpoint(name)
+            self.config.add_endpoint(new_endpoint)
+            dialog.destroy()
+            self.show_settings_page()
+        
+        ttk.Button(dialog, text="Save", command=save).pack(pady=20)
+
+    def remove_endpoint(self, endpoint_name):
+        """Remove selected endpoint."""
+        if not endpoint_name:
+            return
+            
+        name = endpoint_name.split(" (")[0]
+        if messagebox.askyesno("Confirm", f"Remove endpoint {name}?"):
+            self.config.remove_endpoint(name)
+            self.show_settings_page()
 
     def show_help_page(self):
         """Show the help page."""
-        # TODO: Implement help UI
-        pass
+        help_window = Toplevel(self.chat_window)
+        help_window.title("Help")
+        help_window.geometry("500x400")
+        
+        text = Text(help_window, wrap=tk.WORD)
+        text.pack(expand=True, fill="both", padx=10, pady=10)
+        
+        help_content = """
+        Smolit AI Assistant Help
+
+        Available Commands:
+        - Chat: Regular conversation with AI
+        - Knowledge: Access and manage knowledge base
+        - Settings: Configure LLM endpoints and other settings
+        - Help: This help page
+
+        Endpoints:
+        - LM Studio: Local LLM using LM Studio
+        - Llama: Local Llama server (auto-started when selected)
+        - Custom: Add your own endpoints in Settings
+
+        For more information, visit:
+        https://github.com/eco-sphere-network/smolitux
+        """
+        
+        text.insert("1.0", help_content)
+        text.config(state=tk.DISABLED)
 
     def close_application(self):
         """Close the application completely."""
+        self.config.stop_llama_server()
         self.root.destroy()
 
     def run(self):
