@@ -1,5 +1,5 @@
 from typing import List, Dict, Any
-from langchain.prompts import PromptTemplate
+from langchain.prompts import ChatPromptTemplate
 from langchain.llms.base import BaseLLM
 from langchain.chains import LLMChain
 from .base_agent import BaseAgent
@@ -14,30 +14,15 @@ class SupervisorAgent(BaseAgent):
 
     def _initialize_chain(self) -> None:
         """Initialize the supervisor chain with routing logic."""
-        prompt = PromptTemplate(
-            input_variables=["input", "history", "available_experts"],
-            template="""
-            Based on the conversation history:
-            {history}
-            
-            Available expert agents: {available_experts}
-            
-            Human: {input}
-            Assistant: Let me analyze the request and route it to the appropriate expert.
-            
-            1. Task Analysis:
-            - Identify the main task or query
-            - Determine required expertise
-            
-            2. Expert Selection:
-            - Choose the most suitable expert(s)
-            - Consider if multiple experts are needed
-            
-            3. Response Plan:
-            - Outline steps to fulfill the request
-            - Coordinate between experts if needed
-            """
-        )
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", """You are a friendly AI assistant supervisor that helps users by routing their requests to the appropriate expert agent.
+            When responding to greetings or casual conversation, use the knowledge expert to provide a friendly response.
+            For system commands or operations, use the command expert.
+            For internet searches or web information, use the web expert."""),
+            ("human", "{text}"),
+            ("assistant", """Hello! I'm here to help. Let me analyze your request and provide an appropriate response.""")
+        ])
+        
         self.chain = LLMChain(
             llm=self.llm,
             prompt=prompt,
@@ -51,11 +36,17 @@ class SupervisorAgent(BaseAgent):
             # Get available experts list
             experts_list = ", ".join(self.expert_agents.keys())
             
+            # Format the input text
+            text = f"""Based on the conversation history:
+            Available expert agents: {experts_list}
+            
+            Human: {user_input}"""
+            
             # Get supervisor's decision
-            response = await self.chain.arun(
-                input=user_input,
-                available_experts=experts_list
-            )
+            response = await self.chain.arun(text=text)
+            
+            # Clean up response
+            response = response.replace("</s>", "").strip()
             
             # TODO: Implement proper response parsing and expert routing
             # For now, return supervisor's analysis

@@ -268,3 +268,46 @@
 2024-11-15 18:48:50,374 - smolit - INFO - Received interrupt signal
 2024-11-15 18:48:50,375 - smolit - INFO - Llama server stopped
 2024-11-15 18:48:50,375 - smolit - INFO - Llama server stopped
+2024-11-15 19:04:35,075 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:04:35,196 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:04:35,196 - smolit - INFO - Processing user input: hey
+2024-11-15 19:04:36,429 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 19:07:02,670 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:07:02,785 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:07:02,785 - smolit - INFO - Processing user input: hey
+2024-11-15 19:07:04,095 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 19:24:30,330 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:24:30,446 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:24:30,447 - smolit - INFO - Processing user input: hey
+2024-11-15 19:24:31,770 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 19:25:34,747 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:25:34,862 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:25:34,862 - smolit - INFO - Processing user input: hey
+2024-11-15 19:25:36,295 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 19:28:04,904 - smolit - ERROR - Error initializing multi-agent system: 1 validation error for OpenAI
+  Value error, Did not find openai_api_key, please add an environment variable `OPENAI_API_KEY` which contains it, or pass `openai_api_key` as a named parameter. [type=value_error, input_value={'openai_api_key': '', 'o...ne, 'http_client': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.9/v/value_error
+2024-11-15 19:28:56,500 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:28:56,625 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:28:56,625 - smolit - INFO - Processing user input: hey
+2024-11-15 19:28:56,638 - smolit - DEBUG - Response generated: Error in supervisor processing: File Not Found
+2024-11-15 19:29:54,549 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:29:54,672 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:29:54,672 - smolit - INFO - Processing user input: hey
+2024-11-15 19:29:58,826 - smolit - DEBUG - Response generated: Error in supervisor processing: One input key expected got ['input', 'available_experts']
+2024-11-15 19:30:40,115 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:30:40,238 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:30:40,238 - smolit - INFO - Processing user input: hey
+2024-11-15 19:30:43,111 - smolit - DEBUG - Response generated: Error in supervisor processing: One input key expected got ['input', 'available_experts']
+2024-11-15 19:31:33,260 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:31:33,384 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:31:33,384 - smolit - INFO - Processing user input: hey
+2024-11-15 19:31:35,994 - smolit - DEBUG - Response generated: I am the supervisor agent for the command expert. The user has requested to receive the information regarding the availability of command expert agents. The available expert agents are command, knowledge, and web. The request has been routed to the command expert for further processing.</s>
+2024-11-15 19:32:21,884 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:32:22,005 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:32:22,005 - smolit - INFO - Processing user input: hey
+2024-11-15 19:32:24,120 - smolit - DEBUG - Response generated: Hey! I'm glad to assist you. Can you please tell me more about the company you work for?</s>
+2024-11-15 19:37:51,502 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 19:37:51,619 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 19:37:51,619 - smolit - INFO - Processing user input: hey
+2024-11-15 19:37:55,886 - smolit - DEBUG - Response generated: Sure! Based on your request, I have identified that you are looking for a friendly AI assistant to help with routine tasks. My expertise is in routing requests to the appropriate expert agent based on your needs and preferences. If you'd like to get started, please say "greetings" or "hello" and I'll provide a friendly response. If you need to ask about system commands or operations, please use the command expert. If you need to ask about internet searches or web information, please use the web expert.
