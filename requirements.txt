@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+# ========================================================#
+# This file is a part of Smolit package            #
+# Website: **Smolitux**                                   #
+# GitHub:  https://github.com/eco-sphere-network/smolitux #
+# MIT License                                             #
+# Created By  : Sam Schimmelpfennig                       #
+# Updated Date: 28.10.2024 10:00:00                       #
+# ========================================================#
+
+tk # tkinter
+openai # openai==0.27.0 Specify version if needed; adjust based on your environment.
+langchain # langchain==0.0.190Specify version if needed; adjust based on your environment.
+requests
+pygetwindow
+spacy 
+
+# apt install
+libgtk-3-dev
+libgirepository1.0-dev
+libcairo2-dev
+python3-gi 
+python3-gi-cairo
