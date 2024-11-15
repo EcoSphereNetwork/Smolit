@@ -11,11 +11,13 @@
 
 import tkinter as tk
 import asyncio
-from tkinter import Toplevel, Text, Button, END, Frame, Label, ttk, messagebox
+from tkinter import Toplevel, Text, Button, END, Frame, Label, ttk, messagebox, filedialog
 from agents.core.multi_agent_system import MultiAgentSystem
 from agents.core.config import Config, LLMEndpoint
 import subprocess
 import sys
+import aiohttp
+from openhands_client import OpenHandsClient
 
 # Ensure Python 3
 if sys.version_info[0] < 3:
@@ -25,9 +27,12 @@ class SimpleAssistantApp:
     def __init__(self):
         # Initialize configuration
         self.config = Config()
+        self.openhands_client = OpenHandsClient()
+        self.instance_responses = {}
         
         # Initialize main icon window
         self.root = tk.Tk()
+
         self.root.geometry("50x50")
         self.root.overrideredirect(True)
         self.root.wm_attributes("-topmost", True)
@@ -187,11 +192,13 @@ class SimpleAssistantApp:
         buttons_info = [
             ("Chat", 20, lambda: self.toggle_menu()),
             ("Knowledge", 80, lambda: self.show_knowledge_page()),
-            ("Settings", 140, lambda: self.show_settings_page()),
-            ("Help", 200, lambda: self.show_help_page()),
+            ("Smolit-Hands", 140, lambda: self.show_smolit_hands_page()),
+            ("Settings", 200, lambda: self.show_settings_page()),
+            ("Help", 260, lambda: self.show_help_page()),
         ]
 
         for text, y, command in buttons_info:
+
             btn = Button(
                 self.menu_frame, 
                 text=text,
@@ -234,8 +241,165 @@ class SimpleAssistantApp:
         self.response_area.config(state=tk.DISABLED)
         self.response_area.see(END)
 
+    def show_smolit_hands_page(self):
+        """Show the Smolit-Hands Framework page."""
+        if hasattr(self, 'smolit_hands_window') and self.smolit_hands_window.winfo_exists():
+            self.smolit_hands_window.lift()
+            return
+
+        self.smolit_hands_window = Toplevel(self.chat_window)
+        self.smolit_hands_window.title("Smolit-Hands Framework")
+        self.smolit_hands_window.geometry("800x600")
+
+        # Main container with grid layout
+        main_container = Frame(self.smolit_hands_window)
+        main_container.pack(expand=True, fill="both", padx=5, pady=5)
+
+        # Supervisor tile (2x size)
+        supervisor_frame = Frame(main_container, bg='#15aaff', relief="raised", bd=1)
+        supervisor_frame.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=5, pady=5)
+        
+        Label(supervisor_frame, text="Supervisor", bg='#15aaff', fg='white', font=("TkDefaultFont", 14)).pack(pady=5)
+        self.supervisor_text = Text(supervisor_frame, height=8, wrap=tk.WORD, state=tk.DISABLED)
+        self.supervisor_text.pack(expand=True, fill="both", padx=5, pady=5)
+
+        # Container for OpenHands instances
+        self.instances_container = Frame(main_container)
+        self.instances_container.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=5, pady=5)
+
+        # Bottom section
+        bottom_frame = Frame(main_container)
+        bottom_frame.grid(row=2, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+
+        # Input area
+        self.hands_input = Text(bottom_frame, height=3)
+        self.hands_input.pack(side=tk.LEFT, expand=True, fill="both", padx=(0, 5))
+
+        # Buttons frame
+        buttons_frame = Frame(bottom_frame)
+        buttons_frame.pack(side=tk.RIGHT)
+
+        Button(buttons_frame, text="Send", command=self.send_to_supervisor,
+               bg='#15aaff', fg='white').pack(side=tk.TOP, pady=2)
+        Button(buttons_frame, text="📎", command=self.attach_file,
+               bg='#15aaff', fg='white').pack(side=tk.TOP, pady=2)
+        Button(buttons_frame, text="+", command=self.add_openhands_instance,
+               bg='#15aaff', fg='white').pack(side=tk.TOP, pady=2)
+
+        # Configure grid weights
+        main_container.grid_rowconfigure(1, weight=1)
+        main_container.grid_columnconfigure(0, weight=1)
+        main_container.grid_columnconfigure(1, weight=1)
+        # Initialize with two default OpenHands instances
+        self.add_openhands_instance()
+        self.add_openhands_instance()
+
+    def add_openhands_instance(self):
+        """Add a new OpenHands instance tile."""
+        if not hasattr(self, 'instance_count'):
+            self.instance_count = 0
+        
+        instance_frame = Frame(self.instances_container, bg='#f0f0f0', relief="raised", bd=1)
+        row = self.instance_count // 2
+        col = self.instance_count % 2
+        instance_frame.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)
+        
+        Label(instance_frame, text=f"OpenHands {self.instance_count + 1}", 
+              bg='#f0f0f0').pack(pady=5)
+        
+        instance_text = Text(instance_frame, height=6, wrap=tk.WORD, state=tk.DISABLED)
+        instance_text.pack(expand=True, fill="both", padx=5, pady=5)
+        
+        # Store the text widget reference
+        self.instance_responses[self.instance_count] = instance_text
+        
+        self.instance_count += 1
+        
+        # Configure grid weights for the container
+        self.instances_container.grid_columnconfigure(0, weight=1)
+        self.instances_container.grid_columnconfigure(1, weight=1)
+
+    def send_to_supervisor(self):
+        """Send message to the Supervisor Agent."""
+        message = self.hands_input.get("1.0", tk.END).strip()
+        if not message:
+            return
+            
+        self.supervisor_text.config(state=tk.NORMAL)
+        self.supervisor_text.insert(tk.END, f"You: {message}\n")
+        self.supervisor_text.config(state=tk.DISABLED)
+        self.hands_input.delete("1.0", tk.END)
+        
+        # Process message asynchronously
+        async def process():
+            try:
+                response = await self.openhands_client.send_to_supervisor(message)
+                self.root.after(0, lambda: self.handle_supervisor_response(response))
+            except Exception as e:
+                self.root.after(0, lambda: self.display_error(f"Error: {str(e)}"))
+
+        asyncio.run(process())
+
+    def handle_supervisor_response(self, response: dict):
+        """Handle the response from the Supervisor Agent."""
+        if 'error' in response:
+            self.display_error(response['error'])
+            return
+            
+        message = response.get('response', '')
+        self.supervisor_text.config(state=tk.NORMAL)
+        self.supervisor_text.insert(tk.END, f"Supervisor: {message}\n")
+        self.supervisor_text.config(state=tk.DISABLED)
+        self.supervisor_text.see(tk.END)
+
+        # Update instance responses if any
+        for instance_id, instance_msg in response.get('instance_messages', {}).items():
+            self.update_instance_response(int(instance_id), instance_msg)
+
+    def update_instance_response(self, instance_id: int, message: str):
+        """Update the response text for a specific OpenHands instance."""
+        if instance_id not in self.instance_responses:
+            return
+            
+        text_widget = self.instance_responses[instance_id]
+        text_widget.config(state=tk.NORMAL)
+        text_widget.insert(tk.END, f"Response: {message}\n")
+        text_widget.config(state=tk.DISABLED)
+        text_widget.see(tk.END)
+
+    def attach_file(self):
+        """Handle file attachment."""
+        file_path = filedialog.askopenfilename()
+        if not file_path:
+            return
+            
+        async def upload():
+            try:
+                file_id = await self.openhands_client.upload_file(file_path)
+                self.root.after(0, lambda: self.handle_file_upload(file_id))
+            except Exception as e:
+                self.root.after(0, lambda: self.display_error(f"Upload error: {str(e)}"))
+
+        asyncio.run(upload())
+
+    def handle_file_upload(self, file_id: str):
+        """Handle successful file upload."""
+        if not file_id:
+            self.display_error("File upload failed")
+            return
+            
+        self.hands_input.insert(tk.END, f" [File: {file_id}] ")
+
+    def display_error(self, message: str):
+        """Display error message in supervisor text area."""
+        self.supervisor_text.config(state=tk.NORMAL)
+        self.supervisor_text.insert(tk.END, f"Error: {message}\n")
+        self.supervisor_text.config(state=tk.DISABLED)
+        self.supervisor_text.see(tk.END)
+
     def show_knowledge_page(self):
         """Show the knowledge base management page."""
+
         # TODO: Implement knowledge base management UI
         pass
 
@@ -422,4 +586,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
+
+
 
