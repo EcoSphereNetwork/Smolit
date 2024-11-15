@@ -3,19 +3,16 @@ from typing import Optional, Dict, Any
 from langchain.llms.base import BaseLLM
 from langchain.prompts import PromptTemplate
 from ..core.base_agent import BaseAgent
+from ..tools.command_executor import CommandExecutor
 
 class CommandExecutionAgent(BaseAgent):
     def __init__(self, llm: BaseLLM):
+        """Initialize the command execution agent."""
         super().__init__(llm)
-        self.allowed_commands = {
-            'ls': 'List directory contents',
-            'pwd': 'Print working directory',
-            'cat': 'Display file contents',
-            'echo': 'Display a line of text',
-            'grep': 'Search for patterns in files'
-        }
+        self.executor = CommandExecutor()
+        self._initialize_chain()
 
-    def _initialize_chain(self):
+    def _initialize_chain(self) -> None:
         """Initialize the command execution chain."""
         prompt = PromptTemplate(
             input_variables=["input", "history", "allowed_commands"],
@@ -47,40 +44,31 @@ class CommandExecutionAgent(BaseAgent):
 
     async def execute_command(self, command: str) -> Dict[str, Any]:
         """Execute a system command safely."""
-        cmd_parts = command.split()
-        if not cmd_parts:
-            return {"error": "Empty command"}
-            
-        base_cmd = cmd_parts[0]
-        if base_cmd not in self.allowed_commands:
-            return {"error": f"Command '{base_cmd}' not allowed"}
-            
         try:
-            result = subprocess.run(
-                cmd_parts,
-                capture_output=True,
-                text=True,
-                timeout=30
-            )
-            return {
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-                "returncode": result.returncode
-            }
-        except subprocess.TimeoutExpired:
-            return {"error": "Command timed out"}
+            return await self.executor.execute(command)
         except Exception as e:
-            return {"error": str(e)}
+            return {
+                "error": f"Error executing command: {str(e)}",
+                "command": command
+            }
 
     async def process(self, user_input: str) -> str:
         """Process user input and execute command if valid."""
-        # Get chain's analysis
-        response = await self.chain.arun(
-            input=user_input,
-            allowed_commands=str(self.allowed_commands)
-        )
-        
-        # Execute command if it's deemed safe
-        # TODO: Implement proper command extraction from chain response
-        # For now, just return the analysis
-        return response
+        try:
+            # Get chain's analysis
+            response = await self.chain.arun(
+                input=user_input,
+                allowed_commands=str(self.executor.get_allowed_commands())
+            )
+            
+            # TODO: Implement proper command extraction from chain response
+            # For now, just return the analysis
+            return response
+            
+        except Exception as e:
+            return f"Error processing command request: {str(e)}"
+
+    def get_allowed_commands(self) -> Dict[str, Dict[str, Any]]:
+        """Get list of allowed commands and their descriptions."""
+        return self.executor.get_allowed_commands()
+
