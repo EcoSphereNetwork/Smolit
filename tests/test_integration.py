@@ -2,11 +2,12 @@ import pytest
 import asyncio
 from unittest.mock import Mock, patch
 from agents.core.multi_agent_system import MultiAgentSystem
-from .test_base_agent import MockLLM
+from langchain_community.llms.openai import OpenAI
+from tests.test_base_agent import MockLLM
 
 @pytest.fixture
 def multi_agent_system():
-    with patch('langchain.llms.OpenAI', return_value=MockLLM()):
+    with patch('langchain_community.llms.openai.OpenAI', return_value=MockLLM()):
         system = MultiAgentSystem(
             api_key="test_key",
             api_base="http://localhost:1234/v1"
@@ -76,3 +77,4 @@ async def test_error_handling(multi_agent_system):
                      side_effect=Exception("Test error")):
         response = await multi_agent_system.process_input("Test input")
         assert "Error" in response
+

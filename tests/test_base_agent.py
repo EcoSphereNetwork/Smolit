@@ -3,15 +3,26 @@ import asyncio
 from unittest.mock import Mock, patch
 from langchain.llms.base import BaseLLM
 from langchain.memory import ConversationBufferMemory
+from langchain.chains import LLMChain
 from agents.core.base_agent import BaseAgent
+from typing import Any, List, Optional
 
 class MockLLM(BaseLLM):
-    def _call(self, prompt, stop=None):
-        return "Mock response"
-    
+    def _generate(self, prompts: List[str], stop: Optional[List[str]] = None, **kwargs: Any) -> Any:
+        """Mock implementation of _generate."""
+        return [{
+            "text": "Mock response",
+            "generation_info": {"finish_reason": "stop"}
+        }]
+
     @property
-    def _llm_type(self):
+    def _llm_type(self) -> str:
+        """Return type of LLM."""
         return "mock"
+
+    def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+        """Mock implementation of _call."""
+        return "Mock response"
 
 @pytest.fixture
 def mock_llm():
@@ -47,6 +58,7 @@ async def test_base_agent_clear_memory(base_agent):
 
 @pytest.mark.asyncio
 async def test_base_agent_error_handling(base_agent):
-    with patch.object(base_agent.chain, 'arun', side_effect=Exception("Test error")):
+    with patch.object(base_agent.chain, '__call__', side_effect=Exception("Test error")):
         response = await base_agent.process("Test input")
         assert "Error" in response
+

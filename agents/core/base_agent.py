@@ -1,8 +1,8 @@
 from typing import Dict, Any, Optional
-from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate
 from langchain.llms.base import BaseLLM
+from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
+from langchain.chains import LLMChain
 import asyncio
 
 class BaseAgent:
@@ -35,7 +35,11 @@ class BaseAgent:
     async def process(self, user_input: str) -> str:
         """Process user input and return response."""
         try:
-            return await self.chain.arun(input=user_input)
+            result = await asyncio.to_thread(
+                self.chain,
+                {"input": user_input}
+            )
+            return result["text"]
         except Exception as e:
             return f"Error processing request: {str(e)}"
 

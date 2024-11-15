@@ -1,8 +1,9 @@
 from typing import List, Dict, Any
 from langchain.llms.base import BaseLLM
 from langchain.prompts import PromptTemplate
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.chains import LLMChain
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from ..core.base_agent import BaseAgent
 from ..tools.knowledge_base import KnowledgeBase

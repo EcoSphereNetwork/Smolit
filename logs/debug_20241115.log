@@ -1,0 +1,225 @@
+2024-11-15 17:47:28,288 - smolit - INFO - Starting test suite...
+2024-11-15 17:47:28,288 - smolit - INFO - Running tests...
+2024-11-15 17:47:31,910 - smolit - ERROR - Tests failed with exit code: 2
+2024-11-15 17:51:29,157 - smolit - INFO - Starting test suite...
+2024-11-15 17:51:29,157 - smolit - INFO - Running tests...
+2024-11-15 17:51:33,555 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 17:51:33,555 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 17:53:01,506 - smolit - INFO - Starting test suite...
+2024-11-15 17:53:01,506 - smolit - INFO - Running tests...
+2024-11-15 17:53:05,949 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:05,949 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:05,949 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:05,949 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:05,978 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:05,978 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:05,978 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:05,978 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,007 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,007 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,008 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,008 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,047 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,047 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,047 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,047 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,085 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,085 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,085 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,085 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,119 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,119 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:53:06,119 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,119 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:53:06,324 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 17:53:06,324 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 17:56:30,621 - smolit - INFO - Starting test suite...
+2024-11-15 17:56:30,621 - smolit - INFO - Running tests...
+2024-11-15 17:56:35,171 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,171 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,501 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,501 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,531 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,531 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,544 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,544 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,572 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,572 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,584 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,584 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,618 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,618 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,629 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,629 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,657 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,657 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,669 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,669 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,696 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,696 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:56:35,708 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:35,708 - smolit - ERROR - Error initializing multi-agent system: name 'LLMChain' is not defined
+2024-11-15 17:56:36,076 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 17:56:36,076 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 17:58:39,936 - smolit - INFO - Starting test suite...
+2024-11-15 17:58:39,936 - smolit - INFO - Running tests...
+2024-11-15 17:58:44,415 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:44,415 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:44,740 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:44,740 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:44,759 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:44,759 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:44,771 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:44,771 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:44,774 - smolit - INFO - Executing command: ls
+2024-11-15 17:58:44,774 - smolit - INFO - Executing command: ls
+2024-11-15 17:58:44,792 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:44,792 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:44,805 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:44,805 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:44,806 - smolit - INFO - Browsing URL: http://example.com
+2024-11-15 17:58:44,806 - smolit - INFO - Browsing URL: http://example.com
+2024-11-15 17:58:45,169 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:45,169 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:45,180 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:45,180 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:45,182 - smolit - INFO - Adding 2 documents to knowledge base
+2024-11-15 17:58:45,182 - smolit - INFO - Adding 2 documents to knowledge base
+2024-11-15 17:58:45,198 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:45,198 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:45,208 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:45,208 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:45,209 - smolit - INFO - Processing user input: Hello, how are you?
+2024-11-15 17:58:45,209 - smolit - INFO - Processing user input: Hello, how are you?
+2024-11-15 17:58:46,673 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 17:58:46,673 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 17:58:46,674 - smolit - INFO - Processing user input: List files in current directory
+2024-11-15 17:58:46,674 - smolit - INFO - Processing user input: List files in current directory
+2024-11-15 17:58:48,100 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 17:58:48,100 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 17:58:48,101 - smolit - INFO - Processing user input: Search for Python programming
+2024-11-15 17:58:48,101 - smolit - INFO - Processing user input: Search for Python programming
+2024-11-15 17:58:49,414 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 17:58:49,414 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 17:58:49,438 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:49,438 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 17:58:49,448 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:49,448 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 17:58:49,449 - smolit - INFO - Executing command: invalid_command
+2024-11-15 17:58:49,449 - smolit - INFO - Executing command: invalid_command
+2024-11-15 17:58:49,450 - smolit - INFO - Browsing URL: invalid_url
+2024-11-15 17:58:49,450 - smolit - INFO - Browsing URL: invalid_url
+2024-11-15 17:58:49,450 - smolit - INFO - Processing user input: Test input
+2024-11-15 17:58:49,450 - smolit - INFO - Processing user input: Test input
+2024-11-15 17:58:49,451 - smolit - ERROR - Error processing request: Test error
+2024-11-15 17:58:49,451 - smolit - ERROR - Error processing request: Test error
+2024-11-15 17:58:49,847 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 17:58:49,847 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 18:00:59,922 - smolit - INFO - Starting test suite...
+2024-11-15 18:00:59,923 - smolit - INFO - Running tests...
+2024-11-15 18:01:04,491 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:04,491 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:04,818 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:04,818 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:04,839 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:04,839 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:04,851 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:04,851 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:04,852 - smolit - INFO - Executing command: ls
+2024-11-15 18:01:04,852 - smolit - INFO - Executing command: ls
+2024-11-15 18:01:04,874 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:04,874 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:04,886 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:04,886 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:04,887 - smolit - INFO - Browsing URL: http://example.com
+2024-11-15 18:01:04,887 - smolit - INFO - Browsing URL: http://example.com
+2024-11-15 18:01:05,163 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:05,163 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:05,174 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:05,174 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:05,176 - smolit - INFO - Adding 2 documents to knowledge base
+2024-11-15 18:01:05,176 - smolit - INFO - Adding 2 documents to knowledge base
+2024-11-15 18:01:05,191 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:05,191 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:05,201 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:05,201 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:05,202 - smolit - INFO - Processing user input: Hello, how are you?
+2024-11-15 18:01:05,202 - smolit - INFO - Processing user input: Hello, how are you?
+2024-11-15 18:01:06,639 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:01:06,639 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:01:06,640 - smolit - INFO - Processing user input: List files in current directory
+2024-11-15 18:01:06,640 - smolit - INFO - Processing user input: List files in current directory
+2024-11-15 18:01:07,922 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:01:07,922 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:01:07,923 - smolit - INFO - Processing user input: Search for Python programming
+2024-11-15 18:01:07,923 - smolit - INFO - Processing user input: Search for Python programming
+2024-11-15 18:01:09,327 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:01:09,327 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:01:09,359 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:09,359 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:01:09,369 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:09,369 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:01:09,371 - smolit - INFO - Executing command: invalid_command
+2024-11-15 18:01:09,371 - smolit - INFO - Executing command: invalid_command
+2024-11-15 18:01:09,371 - smolit - INFO - Browsing URL: invalid_url
+2024-11-15 18:01:09,371 - smolit - INFO - Browsing URL: invalid_url
+2024-11-15 18:01:09,372 - smolit - INFO - Processing user input: Test input
+2024-11-15 18:01:09,372 - smolit - INFO - Processing user input: Test input
+2024-11-15 18:01:09,372 - smolit - ERROR - Error processing request: Test error
+2024-11-15 18:01:09,372 - smolit - ERROR - Error processing request: Test error
+2024-11-15 18:01:09,823 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 18:01:09,823 - smolit - ERROR - Tests failed with exit code: 1
+2024-11-15 18:06:03,560 - smolit - INFO - Starting test suite...
+2024-11-15 18:06:03,560 - smolit - INFO - Running tests...
+2024-11-15 18:06:07,888 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:07,888 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,202 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,202 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,220 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,220 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,232 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,232 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,233 - smolit - INFO - Executing command: ls
+2024-11-15 18:06:08,233 - smolit - INFO - Executing command: ls
+2024-11-15 18:06:08,255 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,255 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,267 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,267 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,268 - smolit - INFO - Browsing URL: http://example.com
+2024-11-15 18:06:08,268 - smolit - INFO - Browsing URL: http://example.com
+2024-11-15 18:06:08,540 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,540 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,551 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,551 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,552 - smolit - INFO - Adding 2 documents to knowledge base
+2024-11-15 18:06:08,552 - smolit - INFO - Adding 2 documents to knowledge base
+2024-11-15 18:06:08,567 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,567 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:08,578 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,578 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:08,579 - smolit - INFO - Processing user input: Hello, how are you?
+2024-11-15 18:06:08,579 - smolit - INFO - Processing user input: Hello, how are you?
+2024-11-15 18:06:09,905 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:06:09,905 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:06:09,906 - smolit - INFO - Processing user input: List files in current directory
+2024-11-15 18:06:09,906 - smolit - INFO - Processing user input: List files in current directory
+2024-11-15 18:06:11,109 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:06:11,109 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:06:11,110 - smolit - INFO - Processing user input: Search for Python programming
+2024-11-15 18:06:11,110 - smolit - INFO - Processing user input: Search for Python programming
+2024-11-15 18:06:12,515 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:06:12,515 - smolit - DEBUG - Response generated: Error in supervisor processing: Connection error.
+2024-11-15 18:06:12,538 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:12,538 - smolit - DEBUG - Loaded prompts from /workspace/Smolit/agents/core/../prompts/system_prompts.json
+2024-11-15 18:06:12,549 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:12,549 - smolit - INFO - Multi-agent system initialized successfully
+2024-11-15 18:06:12,550 - smolit - INFO - Executing command: invalid_command
+2024-11-15 18:06:12,550 - smolit - INFO - Executing command: invalid_command
+2024-11-15 18:06:12,551 - smolit - INFO - Browsing URL: invalid_url
+2024-11-15 18:06:12,551 - smolit - INFO - Browsing URL: invalid_url
+2024-11-15 18:06:12,551 - smolit - INFO - Processing user input: Test input
+2024-11-15 18:06:12,551 - smolit - INFO - Processing user input: Test input
+2024-11-15 18:06:12,552 - smolit - ERROR - Error processing request: Test error
+2024-11-15 18:06:12,552 - smolit - ERROR - Error processing request: Test error
+2024-11-15 18:06:12,679 - smolit - INFO - All tests passed successfully!
+2024-11-15 18:06:12,679 - smolit - INFO - All tests passed successfully!

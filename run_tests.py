@@ -2,11 +2,11 @@
 import pytest
 import sys
 import os
-from agents.core.logging_config import setup_logging
+from agents.core.logging_config import setup_logger
 
 def main():
     """Run all tests with coverage report."""
-    logger = setup_logging()
+    logger = setup_logger()
     logger.info("Starting test suite...")
 
     # Add source directory to Python path
@@ -41,3 +41,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+

@@ -1,6 +1,7 @@
 from typing import List, Dict, Any
 from langchain.prompts import PromptTemplate
 from langchain.llms.base import BaseLLM
+from langchain.chains import LLMChain
 from .base_agent import BaseAgent
 import asyncio
 
