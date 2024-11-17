@@ -70,6 +70,7 @@ TypeScript_Team	Frontend/Backend (TS)
 Python_Team	Backend (Python)
 Communication Diagram
 
+```text
 UserInput _____________________ Chatbot
                                \
                                 \___________________ Multi-Agent Concierge ___________________
@@ -78,6 +79,7 @@ UserInput _____________________ Chatbot
               Supervisor-Agent         Supervisor-Agent                     Supervisor-Agent     Supervisor-Agent     
       _______________/________________________    \________________              \_______________     \________________
      [Team: RAG, CodeGen, CriticalReview]          [Team: RAG, CG, CR]           [Team: RAG, CG, CR]  [Team: RAG, CG, CR]
+```
 
 Pipeline Summary
 
