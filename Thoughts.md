@@ -62,14 +62,15 @@ Interaction Flow:**
 
 **Teams are categorized by their area of expertise for handling subtasks efficiently.**
 ```mardown
-Team	Specialization
-React_Team	Frontend (React.js)
-Vue_Team	Frontend (Vue.js)
-HTML_Team	Frontend (HTML)
-CSS_Team	Frontend (CSS)
-Java_Team	Frontend/Backend (Java)
+Team_CodeGen:	Specialization:
+React_Team	    Frontend (React.js)
+Vue_Team	    Frontend (Vue.js)
+HTML_Team	    Frontend (HTML)
+CSS_Team	    Frontend (CSS)
+Java_Team	    Frontend/Backend (Java)
 TypeScript_Team	Frontend/Backend (TS)
-Python_Team	Backend (Python)
+Python_Team	    Backend (Python)
+OpenHands       (SpecialCondingTasks)
 ```
 
 ```text
