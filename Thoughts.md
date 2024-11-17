@@ -1,6 +1,7 @@
 
-A multi-agent chatbot system utilizing Llama-Index and LangChain to enable modular, task-oriented, and scalable interaction pipelines.
-System Components
+**A multi-agent chatbot system utilizing Llama-Index and LangChain to enable modular, task-oriented, and scalable interaction pipelines.
+System Components**
+
 Chatbot Backend
 
 Programming Language: Python
