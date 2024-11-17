@@ -61,6 +61,7 @@ Interaction Flow:**
 **Specialized Teams**
 
 **Teams are categorized by their area of expertise for handling subtasks efficiently.**
+```text
 Team	Specialization
 React_Team	Frontend (React.js)
 Vue_Team	Frontend (Vue.js)
@@ -70,6 +71,8 @@ Java_Team	Frontend/Backend (Java)
 TypeScript_Team	Frontend/Backend (TS)
 Python_Team	Backend (Python)
 Communication Diagram
+```
+
 
 ```text
 UserInput _____________________ Chatbot
