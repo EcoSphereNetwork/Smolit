@@ -1,73 +1,91 @@
 
+A multi-agent chatbot system utilizing Llama-Index and LangChain to enable modular, task-oriented, and scalable interaction pipelines.
+System Components
+Chatbot Backend
 
-**Ein Chatbot mit Multiagent Setup mit Llama-Index und Langchain:**
-
-Language: Python
-
-Chatbot_Backend:
-
-Libraies:
-            Langchain
-            LLamafile
-            OpenAI
-            Wisper
-            Coqi
-            Texttospeech[KaljaB]
-            Speechtotext[KoljaB]
-
-- User 
-      - Chatbot
-            - {CLI}In/Out
-            - {GUI}In/Out
-            - {Tts + Stt}In/Out
-            
-
-Agent_Backend:
+Programming Language: Python
 
 Libraries:
-            Llama_Index
-            Langchain
 
-- User
-      - Chatbot
-            - Concierge
-                  - Supervisor:     [Team]/:
-                              - RAG[TeamLeader]
-                              - CodeGenerator[TeamLeader]
-                              - CriticalRewiev[TeamLeader]
+    LangChain: Framework for constructing agents.
+    LlamaFile: Efficient file processing.
+    OpenAI: Language model support.
+    Wisper: Audio synthesis.
+    Coqui: Speech synthesis.
+    Text-to-Speech (KaljaB): TTS integration.
+    Speech-to-Text (KoljaB): STT integration.
 
-UserInput_____________ChatBot______
-                                   \
-                                    \_______________multi-agent-concierge_________________
-                                    /______________/_____________________\____________________\
-                                   /              /                       \                    \
-                   _______________/      ________/_______                 _\______________      \_______________________
-                  supervisor-agent        supervisor-agent                 supervisor-agent              supervisor-agent     
-      _________________/______________________    \________________             \________________          \_________________                     
-      [Team: RAG CodeGenerator CriticalRewiev]    [Team: RAG CG CR]             [Team: RAG CG CR]           [Team: RAG CG CR]
+User Interaction Modes:
 
+    CLI: Text-based interface.
+    GUI: Graphical user interface.
+    TTS + STT: Voice input/output.
 
+Interaction Flow:
 
-**Agent Setup and communication pipeline:**
-User chat with chatbot
-chatbot pieps userinput to the multi-agent-concierge
-the Concierge should split the Task into multiple "first_step_sub-tasks" and send the first_step_sub-tasks to the langchain supervisor.
-The Langchain Supervisor should choose, witch Team should execut witch task.
+    User → Chatbot
+        CLI / GUI / TTS + STT: Various input/output formats.
 
-Pipeline:
-User - Chatbot - Concierge - Supervisoir - Team
-Chatbot: User, Concierge
-Concierge: Chatbot, Supervisor
-Supervisor: Concierge, Teams
-Team: Supervisor, TeamLeaders
+Agent Backend
 
-There are several different Teams, for spezialiced Tasks:
+Libraries:
 
-React_Team:Coding:Frontend
-Vue_Team:Coding:Frontend
-HTML_Team:Coding:Frontend
-CSS_Team:Coding:Frontend
-Java_Team:Coding:Frontend/Backend?
-TypeScript_Team:Coding:Frontend/Backend?
-Python_Team:Coding:Backend
+    Llama-Index: Index and retrieval.
+    LangChain: Agent orchestration.
+
+Interaction Flow:
+
+    User → Chatbot → Concierge → Supervisor → Specialized Team
+
+Multi-Agent Concierge: The Concierge decomposes tasks into subtasks and routes them to the appropriate teams through a LangChain Supervisor.
+Pipeline
+
+    User interacts with the Chatbot.
+    Chatbot forwards user input to the Multi-Agent Concierge.
+    The Concierge:
+        Breaks the task into first-step subtasks.
+        Assigns subtasks to the LangChain Supervisor.
+    The LangChain Supervisor:
+        Determines which team executes which subtask.
+    Teams perform their specialized roles and return results via the pipeline.
+
+Communication Chain:
+
+    User ↔ Chatbot
+    Chatbot ↔ Concierge
+    Concierge ↔ Supervisor
+    Supervisor ↔ Teams
+    Teams ↔ Team Leaders
+
+Specialized Teams
+
+Teams are categorized by their area of expertise for handling subtasks efficiently.
+Team	Specialization
+React_Team	Frontend (React.js)
+Vue_Team	Frontend (Vue.js)
+HTML_Team	Frontend (HTML)
+CSS_Team	Frontend (CSS)
+Java_Team	Frontend/Backend (Java)
+TypeScript_Team	Frontend/Backend (TS)
+Python_Team	Backend (Python)
+Communication Diagram
+
+UserInput _____________________ Chatbot
+                               \
+                                \___________________ Multi-Agent Concierge ___________________
+                                /                 /                        \                   \
+               ________________/       _________/________                  \____________       \_______________________
+              Supervisor-Agent         Supervisor-Agent                     Supervisor-Agent     Supervisor-Agent     
+      _______________/________________________    \________________              \_______________     \________________
+     [Team: RAG, CodeGen, CriticalReview]          [Team: RAG, CG, CR]           [Team: RAG, CG, CR]  [Team: RAG, CG, CR]
+
+Pipeline Summary
+
+    Chatbot serves as the interface for user interaction.
+    Concierge handles task decomposition and routing.
+    Supervisor ensures efficient task allocation.
+    Teams execute specialized tasks under the guidance of their Team Leaders.
+
+This setup ensures modularity, scalability, and efficient task execution for a robust multi-agent chatbot system.
+
 
