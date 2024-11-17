@@ -75,9 +75,9 @@ UserInput _____________________ Chatbot
                                \
                                 \___________________ Multi-Agent Concierge ___________________
                                 /                 /                        \                   \
-               _______________/        _________/________                    \____________       \_______________________
-              Supervisor-Agent         Supervisor-Agent                     Supervisor-Agent     Supervisor-Agent     
-      _______________/________________________    \________________              \_______________     \________________
+               _______________/         ________/_______                     \_________________  \_________________
+               Supervisor-Agent         Supervisor-Agent                       Supervisor-Agent    Supervisor-Agent     
+      _______________/___________________         \__________________           \_________________   \__________________
      [Team: RAG, CodeGen, CriticalReview]          [Team: RAG, CG, CR]           [Team: RAG, CG, CR]  [Team: RAG, CG, CR]
 ```
 
